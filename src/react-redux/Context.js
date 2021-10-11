@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ReactReduxContext = /*#__PURE__*/ React.createContext(null);
+export const ReactReduxContext = React.createContext(null);
 
 if (process.env.NODE_ENV !== "production") {
   ReactReduxContext.displayName = "ReactRedux";

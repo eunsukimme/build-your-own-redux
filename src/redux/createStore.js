@@ -1,4 +1,4 @@
-function createStore(reducer, initialState, middlewares = []) {
+export function createStore(reducer, initialState, middlewares = []) {
   let currentReducer = reducer;
   let currentState = initialState;
   const listeners = [];
@@ -41,5 +41,3 @@ function createStore(reducer, initialState, middlewares = []) {
     subscribe,
   };
 }
-
-module.exports = { createStore };

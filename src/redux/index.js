@@ -1,4 +1,4 @@
-const { createStore } = require("./createStore");
+import { createStore } from "./createStore";
 
 function counterReducer(state = { value: 0 }, action) {
   switch (action.type) {

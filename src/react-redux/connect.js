@@ -1,27 +1,23 @@
 import React from "react";
-import store from "../redux";
 import ReactReduxContext from "./Context";
 
 export default function connect(mapStateToProps, mapDispatchToProps) {
   return function (WrappedComponent) {
     return class extends React.Component {
+      static contextType = ReactReduxContext;
       render() {
         return (
-          <ReactReduxContext.Consumer>
-            {(store) => (
-              <WrappedComponent
-                {...this.props}
-                {...mapStateToProps(store.getState(), this.props)}
-                {...mapDispatchToProps(store.dispatch, this.props)}
-              />
-            )}
-          </ReactReduxContext.Consumer>
+          <WrappedComponent
+            {...this.props}
+            {...mapStateToProps(this.context.getState(), this.props)}
+            {...mapDispatchToProps(this.context.dispatch, this.props)}
+          />
         );
       }
 
       componentDidMount() {
         // it remembers to subscribe to the store so it doesn't miss updates
-        this.unsubscribe = store.subscribe(this.handleChange.bind(this));
+        this.unsubscribe = this.context.subscribe(this.handleChange.bind(this));
       }
 
       componentWillUnmount() {
