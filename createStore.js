@@ -23,6 +23,16 @@ function createStore(reducer, initialState, middlewares = []) {
 
   function subscribe(newListener) {
     listeners.push(newListener);
+    let isSubscribed = true;
+
+    return function unsubscribe() {
+      if (!isSubscribed) {
+        return;
+      }
+      isSubscribed = false;
+      const index = listeners.indexOf(newListener);
+      listeners.splice(index, 1);
+    };
   }
 
   return {

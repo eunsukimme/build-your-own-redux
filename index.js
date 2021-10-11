@@ -26,10 +26,15 @@ let store = createStore(counterReducer, undefined, [logger1, logger2]);
 
 // subscribe() 의 파라미터로 store의 state가 변경될 때 실행될 listener를 전달할 수 있다.
 store.subscribe(() => console.log(store.getState()));
+const unsubscribe = store.subscribe(() =>
+  console.log("this will be unsubscribed...")
+);
 
 store.dispatch({ type: "incremented" });
 // {value: 1}
 store.dispatch({ type: "incremented" });
 // {value: 2}
+unsubscribe();
+unsubscribe();
 store.dispatch({ type: "decremented" });
 // {value: 1}
